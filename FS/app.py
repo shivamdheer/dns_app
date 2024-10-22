@@ -12,12 +12,10 @@ def register():
     as_ip = data.get('as_ip')
     as_port = data.get('as_port')
 
-    # Step 2: Register with the Authoritative Server
     message = f"TYPE=A\nNAME={hostname}\nVALUE={ip}\nTTL=10\n"
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.sendto(message.encode(), (as_ip, int(as_port)))
 
-    # Receive response (optional)
     response, _ = sock.recvfrom(1024)
 
     return jsonify({"status": "Registered"}), 201
@@ -30,7 +28,6 @@ def fibonacci():
     except ValueError:
         return jsonify({"error": "Invalid number format"}), 400
 
-    # Compute Fibonacci number
     if number < 0:
         return jsonify({"error": "Negative numbers not allowed"}), 400
     a, b = 0, 1

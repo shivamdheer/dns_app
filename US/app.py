@@ -14,7 +14,6 @@ def get_fibonacci():
     if not all([hostname, fs_port, number, as_ip, as_port]):
         return jsonify({"error": "Missing parameters"}), 400
 
-    # Step 1: Query the AS for the FS IP
     response = requests.get(f'http://{as_ip}:{as_port}/query?hostname={hostname}')
     if response.status_code != 200:
         return jsonify({"error": "Failed to retrieve FS IP"}), 500
@@ -23,7 +22,6 @@ def get_fibonacci():
     if not fs_ip:
         return jsonify({"error": "FS IP not found"}), 404
 
-    # Step 2: Query the FS for the Fibonacci number
     fs_url = f'http://{fs_ip}:{fs_port}/fibonacci?number={number}'
     fib_response = requests.get(fs_url)
     return (fib_response.content, fib_response.status_code)
