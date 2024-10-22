@@ -1,0 +1,16 @@
+version: '3'
+services:
+  user_server:
+    build: ./US
+    ports:
+      - "8080:8080"
+
+  fibonacci_server:
+    build: ./FS
+    ports:
+      - "9090:9090"
+
+  authoritative_server:
+    build: ./AS
+    ports:
+      - "53533:53533"
